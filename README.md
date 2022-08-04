@@ -1,9 +1,5 @@
 # Begone Codebeispiele
 
-### Name & Matrikelnummern: Christopher Tolstich 5194690  | Ramon Bendinger 5194195 | Quoc An Frank Nguyen 5201042
-
-### **Für die Dokumentation -> siehe PDF Datei im Aulis Projekt Anhang**
-
 <br>
 
 # Table of Contents
