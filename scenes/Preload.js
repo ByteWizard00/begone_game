@@ -98,6 +98,7 @@ class Preload extends Phaser.Scene {
         this.load.image("tuerwork", "/assets/images/tuerwork.png");
         this.load.image("blackbarH", "/assets/images/BlackbarHorizontal.png")
         this.load.image("tuerschlafzimmer", "/assets/images/tuerschlafzimmer.png")
+        this.load.image("herrenzimmer", "/assets/images/Kuche.png")
 
         //Load audio files
         this.load.audio('heartbeat', '/assets/audio/heartbeat.mp3');

@@ -24,7 +24,7 @@ class Schlafzimmer extends Phaser.Scene {
     heartbeat = this.sound.add("heartbeat"); //Herzschlag sound
     heartbeat.setVolume(0.2);
     creakydoor = this.sound.add("creakydoor"); //Door sound
-    creakydoor.setVolume(0.05);
+    creakydoor.setVolume(0.03);
 
     if ((sceneList !== null && sceneList !== undefined) && sceneList[sceneList.length - 1] !== this.sceneName) {
       sceneList.push(this.sceneName);
@@ -243,19 +243,19 @@ class Schlafzimmer extends Phaser.Scene {
       }
     } else { // Wenn Item Getränkedose verwendet wird
       if (cursors.up.isDown) {
-        spieler.setVelocityY(-400);
+        spieler.setVelocityY(-220);
         spieler.anims.play("up", true);
       } else if (cursors.down.isDown) {
-        spieler.setVelocityY(400);
+        spieler.setVelocityY(220);
         spieler.anims.play("down", true);
       } else {
         spieler.setVelocityY(0);
       }
       if (cursors.left.isDown) {
-        spieler.setVelocityX(-400);
+        spieler.setVelocityX(-220);
         spieler.anims.play("left", true);
       } else if (cursors.right.isDown) {
-        spieler.setVelocityX(400);
+        spieler.setVelocityX(220);
         spieler.anims.play("right", true);
       } else {
         spieler.setVelocityX(0);
@@ -267,6 +267,7 @@ class Schlafzimmer extends Phaser.Scene {
   interaction(child) {
     if (collide) {
       if (!inventar.includes(child)) { // Damit das Item nur einmal im Inventar auftaucht
+        collect.play();
         child.disableBody(true, true); // Das Item verschwindet vom Screen
         inventar.push(child); // Das Item wird im Inventar hinzugefügt
         missedItemsErsteEtage = missedItemsErsteEtage.filter((item) => item.name !== child.name); // Aus der Liste der Items, die nicht aufgehoben wurden verschwindet das Item
@@ -400,8 +401,6 @@ class Schlafzimmer extends Phaser.Scene {
       heartbeat.stop();
       heartbeatsound = false;
     }
-
-
     if (!heartbeatsound && this.calcDistanzMonsterSpieler() < 250) {
       heartbeatsound = true;
       heartbeat.play();

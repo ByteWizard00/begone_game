@@ -20,11 +20,7 @@ class Flur extends Phaser.Scene {
     creakydoor = this.sound.add("creakydoor"); //Door sound
     creakydoor.setVolume(0.05);
     
-    if (
-      sceneList !== null &&
-      sceneList !== undefined &&
-      sceneList[sceneList.length - 1] !== this.sceneName
-    ) {
+    if (sceneList !== null && sceneList !== undefined && sceneList[sceneList.length - 1] !== this.sceneName) {
       sceneList.push(this.sceneName);
     }
 
@@ -61,30 +57,19 @@ class Flur extends Phaser.Scene {
     let itembox = this.add.image(this.x + 150, 40, "itembox");
 
     if (
-      sceneList !== null && sceneList[sceneList.length - 2] === undefined
-        ? sceneList[sceneList.length - 1] === "WC"
-        : sceneList[sceneList.length - 2] === "WC"
-    ) {
+      sceneList !== null && sceneList[sceneList.length - 2] === undefined? sceneList[sceneList.length - 1] === "WC" : sceneList[sceneList.length - 2] === "WC") {
       spieler.setX(331);
       spieler.setY(200);
     }
 
-    if (
-      sceneList !== null && sceneList[sceneList.length - 2] === undefined
-        ? sceneList[sceneList.length - 1] === "Schlafzimmer1"
-        : sceneList[sceneList.length - 2] === "Schlafzimmer1"
-    ) {
+    if (sceneList !== null && sceneList[sceneList.length - 2] === undefined? sceneList[sceneList.length - 1] === "Schlafzimmer1" : sceneList[sceneList.length - 2] === "Schlafzimmer1") {
       spieler.setX(600);
       spieler.setY(200);
     }
 
-    items = this.physics.add.staticGroup();
-
-    if (!schluessel) {
-      item2 = items.create(600, 350, "schluessel");
-      item2.setName("schluessel");
-    } else {
-      leveltuer.anims.play("leveltuer");
+    if (sceneList !== null && sceneList[sceneList.length - 2] === undefined? sceneList[sceneList.length - 1] === "Arbeitszimmer" : sceneList[sceneList.length - 2] === "Arbeitszimmer") {
+      spieler.setX(869);
+      spieler.setY(200);
     }
 
     //Inventaranzeige
@@ -201,17 +186,10 @@ class Flur extends Phaser.Scene {
     });
 
     //Spieler kann mit Item kollidieren und mit der Taste-E aufsammeln
-    this.physics.add.collider(spieler, item2, () => {
-      eKey?.on("down", () => {
-        if (!inventar.includes(item2)) {
-          schluessel = item2;
-          inventar.push(schluessel);
-          item2.disableBody(true, true);
+        if (inventar.includes(item2) && schluessel !== null) {
           this.inventarBox(inventar);
           leveltuer.anims.play("leveltuer");
         }
-      });
-    });
 
     // Kollision Spieler/Monster und Umgebung
     this.physics.add.collider(spieler, monster);
@@ -288,19 +266,19 @@ class Flur extends Phaser.Scene {
     } else {
       if (cursors.up.isDown) {
         // Wenn Item Getränkedose verwendet wird
-        spieler.setVelocityY(-400);
+        spieler.setVelocityY(-220);
         spieler.anims.play("up", true);
       } else if (cursors.down.isDown) {
-        spieler.setVelocityY(400);
+        spieler.setVelocityY(220);
         spieler.anims.play("down", true);
       } else {
         spieler.setVelocityY(0);
       }
       if (cursors.left.isDown) {
-        spieler.setVelocityX(-400);
+        spieler.setVelocityX(-220);
         spieler.anims.play("left", true);
       } else if (cursors.right.isDown) {
-        spieler.setVelocityX(400);
+        spieler.setVelocityX(220);
         spieler.anims.play("right", true);
       } else {
         spieler.setVelocityX(0);
@@ -422,7 +400,15 @@ class Flur extends Phaser.Scene {
 
   // Monster Events
   monster_KI() {
-    // setInterval(() => {
+    this.collisionWand(monster.x, monster.y);
+    if (heartbeatsound && this.calcDistanzMonsterSpieler() > 250) {
+      heartbeat.stop();
+      heartbeatsound = false;
+    }
+    if (!heartbeatsound && this.calcDistanzMonsterSpieler() < 250) {
+      heartbeatsound = true;
+      heartbeat.play();
+    }
     this.collisionWand(monster.x, monster.y);
     if (
       this.calcDistanzMonsterSpieler() < 150 &&
@@ -506,7 +492,6 @@ class Flur extends Phaser.Scene {
       monster?.setVelocityY(-180);
       monster?.anims.play("up-monster", true);
     }
-    // }, 500);
   }
 
   // Berechnung Abstand Spieler und Monster mit Mathvektorabstandsformel

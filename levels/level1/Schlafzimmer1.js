@@ -5,6 +5,7 @@ class Schlafzimmer1 extends Phaser.Scene {
     this.sceneName = "Schlafzimmer1";
     this.spielerKnockback = "";
   }
+
   init() {
     abstandsStartwertXLeben = 73;
     itemGroupArray = [];
@@ -227,19 +228,19 @@ class Schlafzimmer1 extends Phaser.Scene {
     } else {
       if (cursors.up.isDown) {
         // Wenn Item Getränkedose verwendet wird
-        spieler.setVelocityY(-400);
+        spieler.setVelocityY(-220);
         spieler.anims.play("up", true);
       } else if (cursors.down.isDown) {
-        spieler.setVelocityY(400);
+        spieler.setVelocityY(220);
         spieler.anims.play("down", true);
       } else {
         spieler.setVelocityY(0);
       }
       if (cursors.left.isDown) {
-        spieler.setVelocityX(-400);
+        spieler.setVelocityX(-220);
         spieler.anims.play("left", true);
       } else if (cursors.right.isDown) {
-        spieler.setVelocityX(400);
+        spieler.setVelocityX(220);
         spieler.anims.play("right", true);
       } else {
         spieler.setVelocityX(0);
@@ -374,11 +375,15 @@ class Schlafzimmer1 extends Phaser.Scene {
 
   // Monster Events
   monster_KI() {
-    this.collisionWand(monster.x, monster.y);
-    if (
-      this.calcDistanzMonsterSpieler() < 150 &&
-      this.calcDistanzMonsterSpieler() > 50
-    ) {
+    if (heartbeatsound && this.calcDistanzMonsterSpieler() > 250) {
+      heartbeat.stop();
+      heartbeatsound = false;
+    }
+    if (!heartbeatsound && this.calcDistanzMonsterSpieler() < 250) {
+      heartbeatsound = true;
+      heartbeat.play();
+    }
+    if (this.calcDistanzMonsterSpieler() < 150 && this.calcDistanzMonsterSpieler() > 50) {
       // Wenn die Distanz zwischen dem Monster und Spieler genau dazwischen liegt, soll er den Spieler verfolgen
       this.spielerVerfolgen();
     } else if (this.calcDistanzMonsterSpieler() <= 50) {

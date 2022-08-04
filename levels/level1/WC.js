@@ -6,7 +6,6 @@ class WC extends Phaser.Scene {
     this.spielerKnockback = "";
   }
   init() {
-    monsterCollideWorld = { oben: false, rechts: false, unten: false, links: false };
     abstandsStartwertXLeben = 73;
     itemGroupArray = [];
     initialSpeed = true;
@@ -42,7 +41,7 @@ class WC extends Phaser.Scene {
     flurtuer.create(420, 670, "blackbarH");
 
     spieler = this.physics.add.sprite(420, 570, "spieler");
-    monster = this.physics.add.sprite(450, 150, "monster");
+    monster = this.physics.add.sprite(700, 150, "monster");
 
     let playerbox = this.add.image(30, 30, "box");
     spieler1 = this.physics.add.sprite(30, 30, "spieler");
@@ -209,19 +208,19 @@ class WC extends Phaser.Scene {
     } else {
       if (cursors.up.isDown) {
         // Wenn Item Getränkedose verwendet wird
-        spieler.setVelocityY(-400);
+        spieler.setVelocityY(-220);
         spieler.anims.play("up", true);
       } else if (cursors.down.isDown) {
-        spieler.setVelocityY(400);
+        spieler.setVelocityY(220);
         spieler.anims.play("down", true);
       } else {
         spieler.setVelocityY(0);
       }
       if (cursors.left.isDown) {
-        spieler.setVelocityX(-400);
+        spieler.setVelocityX(-220);
         spieler.anims.play("left", true);
       } else if (cursors.right.isDown) {
-        spieler.setVelocityX(400);
+        spieler.setVelocityX(220);
         spieler.anims.play("right", true);
       } else {
         spieler.setVelocityX(0);
@@ -347,12 +346,16 @@ class WC extends Phaser.Scene {
   }
 
   monster_KI() {
-    //setInterval(() => {
-    //this.collisionWand(monster.x, monster.y);
-    if (
-      this.calcDistanzMonsterSpieler() < 150 &&
-      this.calcDistanzMonsterSpieler() > 50
-    ) {
+    this.collisionWand(monster.x, monster.y);
+    if (heartbeatsound && this.calcDistanzMonsterSpieler() > 250) {
+      heartbeat.stop();
+      heartbeatsound = false;
+    }
+    if (!heartbeatsound && this.calcDistanzMonsterSpieler() < 250) {
+      heartbeatsound = true;
+      heartbeat.play();
+    }
+    if (this.calcDistanzMonsterSpieler() < 150 && this.calcDistanzMonsterSpieler() > 50) {
       // Wenn die Distanz zwischen dem Monster und Spieler genau dazwischen liegt, soll er den Spieler verfolgen
       this.spielerVerfolgen();
     } else if (this.calcDistanzMonsterSpieler() <= 50) {
@@ -434,7 +437,7 @@ class WC extends Phaser.Scene {
     //   monster?.setVelocityY(-180);
     //   monster?.anims.play("up-monster", true);
     // }
-    //}, 500);
+    //}
   }
 
   // Berechnung Abstand Spieler und Monster mit Mathvektorabstandsformel
