@@ -36,6 +36,7 @@
 
 > ### Spielerbewegung ohne den Booster 
 > ### Initial Speed (Anfangsgeschwindigkeit) ist ein Boolean. Dieser überprüft, ob der Booster genommen wurde false oder sonst true.
+
 ```javascript
 // In der Phaser Update Funktion
 if (initialSpeed == true) {
@@ -95,6 +96,7 @@ eKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
       });
     });
 ```
+
 ```javascript
 //Seperate Funktion
 //Spieler interagiert mit Item
