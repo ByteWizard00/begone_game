@@ -4,7 +4,6 @@
 
 # Table of Contents
 
-
 ## Allgemeine Funktionen
 ## 1.1 [Spielerbewegung](#spielerbewegung)
 ## 1.2 [Items aufsammeln](#items_aufsammeln)
