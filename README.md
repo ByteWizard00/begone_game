@@ -422,8 +422,6 @@ spielerVerfolgen() {
 
 <br>
 
-<br>
-
 # 2. Level Funktionen
 
 ## 2.1 <a id="level_verschlossene_tuer"></a> Verschlossene Tür
