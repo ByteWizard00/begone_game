@@ -76,6 +76,7 @@ if (initialSpeed == true) {
 > ### Damit Phaser weiß, welches Item mit dem Spieler gerade kollidiert muss durch die "static group" iteriert werden.
    
 > ### Beim drücken der E-Taste und bei der Kollision zwischen dem Spieler und des Objektes wird die Funktion "interaction" der Klasse aufgerufen.    
+
 <br>
 
 
@@ -111,9 +112,13 @@ eKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
     }
   }
 ```
+
 <br>
+
 ## 1.3 <a id="geschwindigkeit_booster"></a> Geschwindigkeit erhöhen, beim Aufsammeln der Getränkedose (Booster)
+
 <br>
+
 ```javascript
 //Seperate Funktion
 cola() {
@@ -129,10 +134,14 @@ cola() {
     }
   }
 ```
+
 <br>
+
 ---
 ## 1.4 <a id="leben_behandlung"></a> Leben
+
 <br>
+
 ```javascript
 //Seperate Funktion
 lebenHinzufuegen() {
@@ -150,8 +159,9 @@ lebenNehmen() {
     }
   }
 ```
+
 > ### Leben als Herz hinfügen, beim Aufsammeln des Apfels
->
+
 ```javascript
 //Seperate Funktion
 essen() {
@@ -165,10 +175,14 @@ essen() {
     }
   }
 ```
+
 <br>
+
 ---
 ## 1.5 <a id="Inventaranzeige"></a> Inventaranzeige
+
 <br>
+
 ```javascript
 //Überprüft, ob Item in Inventar ist.
   ItemInInventar = (name) => inventar.find((elem) => elem.name === name) ? true : false;
@@ -185,6 +199,7 @@ essen() {
     }
   };
 ```
+
 ### Tasten mit Items werden verknüpft
 ```javascript
 //Auswahl des aktiven Items aus der Inventar-Liste
@@ -206,7 +221,9 @@ essen() {
     });
   }
 ```
+
 ### Anzeige der Items in den oberen Kästen 
+
 ```javascript
   inventarBox(inventar_items) { //Parameter bekommt inventar-array übergeben
     //Bestimmung des Abstandes zwischen den Items der Box 
@@ -245,11 +262,16 @@ essen() {
     }
   }
 ```
+
 <br>
+
 ---
 ## 1.6 <a id="monster"></a> Monsterbewegung
+
 <br>
+
 > ### Berechnung der Distanz zwischen Monster und Spieler, mithilfe der Formel zur Berechnung des Abstandes zwischen zwei 2d-Vektoren. 
+
 ```javascript
 calcDistanzMonsterSpieler() {
     let x = spieler.x - monster.x;
@@ -257,7 +279,9 @@ calcDistanzMonsterSpieler() {
     return Math.sqrt((x * x) + (y * y));
   }
 ```
+
 <br>
+
 ```javascript
 collisionWand(x, y) {
     let canvasWeite = 1200;
@@ -281,7 +305,9 @@ collisionWand(x, y) {
     }
   }
 ```
+
 > ### Bewegung des Monsters zum Verfolgen des Spielers
+
 ```javascript
 spielerVerfolgen() {
     //Spieler ist über dem Monster
@@ -311,7 +337,9 @@ spielerVerfolgen() {
     else return;
   }
 ```
+
 <br>
+
 ```javascript
   //Aufgerufen durch Phaser create-Funktion
   monster_KI() {
@@ -394,11 +422,17 @@ spielerVerfolgen() {
       }
   }
 ```
+
 <br>
+
 <br>
+
 <br>
+
 # 2. Level Funktionen
+
 ## 2.1 <a id="level_verschlossene_tuer"></a> Verschlossene Tür
+
 ```javascript
 // Alles in Phaser Create-Funktion des Levels
 let eKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
